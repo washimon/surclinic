@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import ClinicApp from './ClinicApp';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ClinicApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
