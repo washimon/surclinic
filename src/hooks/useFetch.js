@@ -11,8 +11,9 @@ export const useFetch = url => {
         setOptions(options);
         setIsLoading(true);
     }
-
+    
     useEffect(() => {
+        console.log('Usefetch inicializado');
         if (!isLoading) return;
         const fetchData = async () => {
             console.log('Ejecutando fetch');
@@ -21,7 +22,7 @@ export const useFetch = url => {
                 setResponse(res.data);
                 console.log(res.data);
             } catch (err) {
-                console.log(err);
+                console.log({err});
                 // setResError(err.response.data);
                 setResError("Error: no se obtuvo respuesta del servidor.");
             } finally {

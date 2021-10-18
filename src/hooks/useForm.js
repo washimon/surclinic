@@ -20,9 +20,13 @@ export const useForm = (initialForm, validateForm) => {
 
         setErrors(validateForm(form));
     }
+    
+    const doValidate = () => {
+        setErrors(validateForm(form));
+    }
+
     const handleSubmit = e => {
         e.preventDefault();
-        setErrors(validateForm(form));
         if (Object.values(errors).length > 0) return;
         console.log(Object.values(errors).length);
         console.log(Object.values(errors));
@@ -38,6 +42,7 @@ export const useForm = (initialForm, validateForm) => {
         response,
         handleChange,
         handleBlur,
+        doValidate,
         handleSubmit
     }
 }
