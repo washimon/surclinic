@@ -13,17 +13,12 @@ export const useFetch = url => {
     }
     
     useEffect(() => {
-        console.log('Usefetch inicializado');
         if (!isLoading) return;
         const fetchData = async () => {
-            console.log('Ejecutando fetch');
             try {
-                const res = await axios(url, options);
+                const res = await axios.get(url);
                 setResponse(res.data);
-                console.log(res.data);
             } catch (err) {
-                console.log({err});
-                // setResError(err.response.data);
                 setResError("Error: no se obtuvo respuesta del servidor.");
             } finally {
                 setIsLoading(false);
@@ -31,10 +26,12 @@ export const useFetch = url => {
         }
 
         fetchData();
-    }, [isLoading]);
+    }, [isLoading, options, url]);
 
-    return [
-        { response, isLoading, resError },
+    return {
+        response,
+        isLoading,
+        resError,
         doFetch
-    ];
+    };
 }

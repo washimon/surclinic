@@ -5,35 +5,14 @@ const initialForm = {
     password: ''
 }
 
-const validationsForm = form => {
-    const errors = {};
-    const regexUserName = /^([a-zA-Z\d]{3})[a-zA-Z\d]*$/gm;
-    const regexPassword = /^([a-zA-Z\d]{6})[a-zA-Z\d]*$/gm;
-
-    if (!form.userName.trim()) {
-        errors.userName = 'El usuario es requerido.';
-    } else if (!regexUserName.test(form.userName)) {
-        errors.userName = 'El usuario debe tener entre 3 a más caracteres y sin espacios.';
-    }
-
-    if (!form.password.trim()) {
-        errors.password = 'La contraseña es requerida.';
-    } else if (!regexPassword.test(form.password)) {
-        errors.password = 'La contraseña debe tener entre 6 a más caracteres y sin espacios.';
-    }
-
-    return errors;
-}
-
 const SignIn = () => {
 
     const {
         form,
-        errors,
+        formErrors,
         handleChange,
         handleSubmit,
-        handleBlur
-    } = useForm(initialForm, validationsForm);
+    } = useForm(initialForm);
 
     return (
         <div className="form">
@@ -48,28 +27,26 @@ const SignIn = () => {
                 <label htmlFor="id-username">Nombre de usuario</label>
                 <input
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     name="userName"
                     value={form.userName}
-                    className={errors.userName && "input-error"}
+                    className={formErrors.userName && "input-error"}
                     id="id-username"
                     type="text"
                 />
-                {errors.userName &&
-                    <span className="error">{errors.userName}</span>
+                {formErrors.userName &&
+                    <span className="error">{formErrors.userName}</span>
                 }
                 <label htmlFor="id-password">Contraseña</label>
                 <input
                     onChange={handleChange}
-                    onBlur={handleBlur}
                     value={form.password}
-                    className={errors.password && "input-error"}
+                    className={formErrors.password && "input-error"}
                     name="password"
                     id="id-password"
                     type="password"
                 />
-                {errors.password &&
-                    <span className="error">{errors.password}</span>
+                {formErrors.password &&
+                    <span className="error">{formErrors.password}</span>
                 }
                 <button>Iniciar sesión</button>
             </form>

@@ -1,1 +1,1 @@
-export const GET_FORM = 'GET_FORM';
+export const SET_FORM_ERRORS = 'SET_FORM_ERRORS';

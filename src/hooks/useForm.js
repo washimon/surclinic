@@ -1,48 +1,44 @@
 import { useState } from "react";
+import { validateForm } from "../helpers/validateForm";
 import { useFetch } from './useFetch';
 
-export const useForm = (initialForm, validateForm) => {
+export const useForm = initialForm => {
+    const url = 'http://localhost:8080/api/clientes';
+
     const [form, setForm] = useState(initialForm);
-    const [errors, setErrors] = useState({});
-    const [{ response, isLoading, resError }, doFetch] = useFetch('');
+    const [formErrors, setFormErrors] = useState({});
+    const { response, isLoading, resError, doFetch} = useFetch(url);
 
     const handleChange = e => {
         const { name, value } = e.target;
-
         setForm({
             ...form,
             [name]: value
         });
     }
 
-    const handleBlur = e => {
-        handleChange(e);
-
-        setErrors(validateForm(form));
-    }
-    
-    const doValidate = () => {
-        setErrors(validateForm(form));
-    }
-
     const handleSubmit = e => {
         e.preventDefault();
-        if (Object.values(errors).length > 0) return;
-        console.log(Object.values(errors).length);
-        console.log(Object.values(errors));
-        console.log('Ignorando validacion');
+        setFormErrors(validateForm(form));
+        if (
+            Object.values(formErrors).length > 0 
+            || !form.userName.trim() 
+            || !form.password
+            || Object.values(validateForm(form)).length > 0) return;
         doFetch();
+        setForm({
+            userName: '',
+            password: ''
+        });
     }
 
     return {
         form,
-        errors,
+        formErrors,
         resError,
         isLoading,
         response,
         handleChange,
-        handleBlur,
-        doValidate,
-        handleSubmit
+        handleSubmit,
     }
 }
