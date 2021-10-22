@@ -1,13 +1,25 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import MainContext from "../../global/main/MainContext";
+import { DASHBOARD, PATIENTS } from "../../types";
+
 const Sidebar = () => {
+
+    const { currentPage, setCurrentPage } = useContext(MainContext);
+
+    const handleClick = page => {
+        setCurrentPage(page);
+    }
+
     return (
         <aside>
             <ul>
-                <li className="current-page"><i className="fas fa-clipboard-list"></i> Dashboard</li>
-                <li><i className="fas fa-user-md"></i> Médico</li>
-                <li><i className="fas fa-users"></i> Paciente</li>
-                <li><i className="fas fa-calendar-check"></i> Cita</li>
-                <li><i className="fas fa-pills"></i> Medicina</li>
-                <li><i className="fas fa-cogs"></i> Ajustes</li>
+                <Link onClick={() => handleClick(DASHBOARD)} to="/"><li className={`${currentPage === DASHBOARD && 'current-page'}`}><i className="fas fa-clipboard-list"></i>Dashboard</li></Link>
+                <li><i className="fas fa-user-md"></i>Médico</li>
+                <Link onClick={() => handleClick(PATIENTS)} to="/pacientes"><li className={`${currentPage === PATIENTS && 'current-page'}`}><i className="fas fa-users"></i>Paciente</li></Link>
+                <li><i className="fas fa-calendar-check"></i>Cita</li>
+                <li><i className="fas fa-pills"></i>Medicina</li>
+                <li><i className="fas fa-cogs"></i>Ajustes</li>
             </ul>
         </aside>
     );

@@ -1,10 +1,28 @@
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import PatientsContext from "../../global/patients/PatientsContext";
 import Pager from "../independent/Pager";
 import Search from "../independent/Search";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
-import PatientList from "./PatientList";
+import { useFetch } from "../../hooks/useFetch";
+import Patientlist from "./PatientList";
 
 const Patients = () => {
+
+    const { patientList, getPatients } = useContext(PatientsContext);
+    const { response, doFetch } = useFetch("http://localhost:8090/paciente/", "GET");
+
+    useEffect(() => {
+        doFetch();
+    }, []);
+    
+    useEffect(() => {
+        if (!response) return;
+        console.log('Actualizando context desde effect');
+        getPatients(response);
+    }, [response]);
+
     return (
         <div className="main">
             <Navbar />
@@ -15,9 +33,11 @@ const Patients = () => {
                     <Pager />
                 </div>
                 <div className="registration-link">
-                    <a href="./create-update-product.html"><i className="fas fa-plus"></i>Registra paciente</a>
+                    <Link to="/pacientes/registrar"><i className="fas fa-plus"></i>Registra paciente</Link>
                 </div>
-                <PatientList />
+                <Patientlist
+                    patients={patientList}
+                />
             </div>
         </div>
     );

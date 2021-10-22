@@ -2,6 +2,8 @@ import Navbar from '../layout/Navbar';
 import Sidebar from '../layout/Sidebar';
 
 const Dashboard = () => {
+
+
     return (
         <div className="main">
             <Navbar />

@@ -1,43 +1,30 @@
-const Patientlist = () => {
+const Patientlist = ({ patients }) => {
+
+    if (!patients) return (<div>Error</div>);
+    if (patients.length === 0) return (<div>No hay pacientes todavía.</div>);
+    console.log(patients, typeof patients);
+    const patientsList = patients.map((item, index) => (
+        <div key={item.id} className={`rows ${index % 2 === 0 ? 'rows-1' : 'rows-2'}`}>
+            <p>{item.id}</p>
+            <p>{`${item.nombre || 'Sin '} ${item.apellido || 'nombres'}`}</p>
+            <p>{item.alergias || '0 alergias'}</p>
+            <p>{item.enfermedades || '0 enfermedades'}</p>
+            <p>{item.medicamentos || '0 medicamentos'}</p>
+        </div>
+    ));
+
     return (
         <div className="results-table">
             <h2 className="table-title">Lista de pacientes: <span>Todos</span></h2>
             <div className="table">
                 <div className="headers">
                     <h4>Id</h4>
-                    <h4>Descripción</h4>
-                    <h4>Stock</h4>
-                    <h4>Precio</h4>
-                    <h4>Categoría</h4>
+                    <h4>Paciente</h4>
+                    <h4>Alergias</h4>
+                    <h4>Enfermedades</h4>
+                    <h4>Medicamentos</h4>
                 </div>
-                <div className="rows rows-1">
-                    <p>1</p>
-                    <p>Revista de material fino máximo 45 hojas</p>
-                    <p>500</p>
-                    <p>9.50</p>
-                    <p>Libros</p>
-                    {/* <div className="actions">
-                    <a href="/ads"><i className="fas fa-edit"></i>Detalles</a>
-                    <span>|</span>
-                    <a href="/ads"><i className="fas fa-edit"></i>Edita</a>
-                    <span>|</span>
-                    <a href="/ads"><i className="fas fa-trash-alt"></i>Elimina</a>
-                </div> */}
-                </div>
-                <div className="rows rows-2">
-                    <p>1</p>
-                    <p>Revista de material fino máximo 45 hojas</p>
-                    <p>500</p>
-                    <p>9.50</p>
-                    <p>Libros</p>
-                    {/* <div className="actions">
-                    <a href="/ads"><i className="fas fa-edit"></i>Detalles</a>
-                    <span>|</span>
-                    <a href="/ads"><i className="fas fa-edit"></i>Edita</a>
-                    <span>|</span>
-                    <a href="/ads"><i className="fas fa-trash-alt"></i>Elimina</a>
-                </div> */}
-                </div>
+                {patientsList}
             </div>
         </div>
     );
