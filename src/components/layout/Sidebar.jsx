@@ -14,10 +14,14 @@ const Sidebar = () => {
     return (
         <aside>
             <ul>
-                <Link onClick={() => handleClick(DASHBOARD)} to="/"><li className={`${currentPage === DASHBOARD && 'current-page'}`}><i className="fas fa-clipboard-list"></i>Dashboard</li></Link>
-                <li><i className="fas fa-user-md"></i>Médico</li>
-                <Link onClick={() => handleClick(PATIENTS)} to="/pacientes"><li className={`${currentPage === PATIENTS && 'current-page'}`}><i className="fas fa-users"></i>Paciente</li></Link>
-                <li><i className="fas fa-calendar-check"></i>Cita</li>
+                <Link onClick={() => handleClick(DASHBOARD)} to="/">
+                    <li className={`${currentPage === DASHBOARD && 'current-page'}`}><i className="fas fa-clipboard-list"></i>Dashboard</li>
+                </Link>
+                <li><i className="fas fa-user-md"></i>Médicos</li>
+                <Link onClick={() => handleClick(PATIENTS)} to="/pacientes">
+                    <li className={`${currentPage === PATIENTS && 'current-page'}`}><i className="fas fa-users"></i>Pacientes</li>
+                </Link>
+                <li><i className="fas fa-calendar-check"></i>Citas</li>
                 <li><i className="fas fa-pills"></i>Medicina</li>
                 <li><i className="fas fa-cogs"></i>Ajustes</li>
             </ul>

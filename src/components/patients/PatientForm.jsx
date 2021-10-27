@@ -1,9 +1,10 @@
-import { useEffect } from "react";
 import Swal from "sweetalert2";
+import { useContext, useEffect } from "react";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import { useForm } from "../../hooks/useForm";
-import { PATIENT_FORM } from "../../types";
+import MainContext from "../../global/main/MainContext";
+import { PATIENTS } from "../../types";
 
 const initialForm = {
     firstName: '',
@@ -16,9 +17,11 @@ const initialForm = {
     email: ''
 }
 
-const Patientform = () => {
+const PatientForm = () => {
+
+    const { setCurrentPage } = useContext(MainContext);
     const url = "http://localhost:8090/paciente/";
-    const { form, formErrors, response, resError, handleChange, handleSubmit } = useForm(initialForm, "POST", url);
+    const { form, formErrors, response, resError, handleChange, handleSubmitPatientForm } = useForm(initialForm, "POST", url);
 
     useEffect(() => {
         if (response) {
@@ -42,6 +45,10 @@ const Patientform = () => {
 
     }, [resError]);
 
+    useEffect(() => {
+        setCurrentPage(PATIENTS);
+    }, []);
+
     return (
         <div className="main">
             <Navbar />
@@ -49,7 +56,7 @@ const Patientform = () => {
             <div className="content">
                 <div className="form patient-form">
                     <form
-                        onSubmit={(e) => handleSubmit(e, PATIENT_FORM)}
+                        onSubmit={handleSubmitPatientForm}
                     >
                         <h2>Registra paciente</h2>
                         <h4>Datos del paciente</h4>
@@ -172,4 +179,4 @@ const Patientform = () => {
     );
 }
 
-export default Patientform;
+export default PatientForm;

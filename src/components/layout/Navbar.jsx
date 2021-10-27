@@ -4,7 +4,7 @@ const Navbar = () => {
     return (
         <nav>
             <span className="clinic-branch">
-                <i className="fas fa-clinic-medical"></i> SurClinic
+                <i className="fas fa-clinic-medical"></i> Sistema Web RCM
             </span>
         </nav>
     );

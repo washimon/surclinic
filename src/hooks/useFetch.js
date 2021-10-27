@@ -15,9 +15,9 @@ export const useFetch = (url, httpTypeMethod) => {
     useEffect(() => {
         if (!isLoading) return;
         const fetchData = async () => {
-            console.log(url);
-            console.log(httpTypeMethod);
-            console.log(options);
+            // console.log(url);
+            // console.log(httpTypeMethod);
+            // console.log(options);
             try {
                 let res;
                 if (httpTypeMethod === 'GET') {

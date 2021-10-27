@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useContext } from "react";
 import PatientsContext from "../../global/patients/PatientsContext";
 
@@ -8,7 +9,15 @@ const Pager = () => {
     return (
         <div className="pager">
             <div className="results">
-                <span>Resultados </span><span>{patientList?.length}</span><span> de </span><span>{patientList?.length}</span>
+                {!patientList
+                    ? <span>No hay resultados</span>
+                    : <Fragment>
+                        <span>Resultados </span>
+                        <span>{patientList?.length}</span>
+                        <span> de </span>
+                        <span>{patientList?.length}</span>
+                    </Fragment>
+                }
             </div>
             {/* <div className="pages">
                 <a href="/asd"><i className="fas fa-chevron-left"></i></a>

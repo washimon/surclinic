@@ -6,7 +6,7 @@ import patientsReducer from "./patientsReducer";
 const PatientsState = ({ children }) => {
 
     const initialState = {
-        patientList: []
+        patientList: null
     }
 
     const [state, dispatch] = useReducer(patientsReducer, initialState);

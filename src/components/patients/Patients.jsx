@@ -7,19 +7,22 @@ import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
 import { useFetch } from "../../hooks/useFetch";
 import Patientlist from "./PatientList";
+import MainContext from "../../global/main/MainContext";
+import { PATIENTS } from "../../types";
 
 const Patients = () => {
 
+    const { setCurrentPage } = useContext(MainContext);
     const { patientList, getPatients } = useContext(PatientsContext);
     const { response, doFetch } = useFetch("http://localhost:8090/paciente/", "GET");
 
     useEffect(() => {
         doFetch();
+        setCurrentPage(PATIENTS);
     }, []);
     
     useEffect(() => {
         if (!response) return;
-        console.log('Actualizando context desde effect');
         getPatients(response);
     }, [response]);
 

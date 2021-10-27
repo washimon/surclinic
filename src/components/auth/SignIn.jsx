@@ -1,5 +1,4 @@
 import { useForm } from "../../hooks/useForm";
-import { SIGN_IN_FORM } from "../../types";
 
 const initialForm = {
     userName: '',
@@ -12,13 +11,13 @@ const SignIn = () => {
         form,
         formErrors,
         handleChange,
-        handleSubmit,
-    } = useForm(initialForm);
+        handleSubmitSignInForm,
+    } = useForm(initialForm, "GET", "http://localhost:8080/api/clientes");
 
     return (
         <div className="form">
             <form
-                onSubmit={(e) => handleSubmit(e, SIGN_IN_FORM)}
+                onSubmit={handleSubmitSignInForm}
             >
                 <span className="clinic-branch">
                     <i className="fas fa-clinic-medical"></i> SurClinic

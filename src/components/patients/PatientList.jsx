@@ -1,8 +1,22 @@
 const Patientlist = ({ patients }) => {
 
-    if (!patients) return (<div>Error</div>);
-    if (patients.length === 0) return (<div>No hay pacientes todavía.</div>);
-    console.log(patients, typeof patients);
+    if (!patients) return (
+        <div className="results-table">
+            <div className="alert alert-danger">
+                <h3>Error de servidor</h3>
+                No se puede obtener los pacientes.
+            </div>
+        </div>
+    );
+    if (patients.length === 0) return (
+        <div className="results-table">
+            <div className="alert alert-info">
+                <h3>No hay pacientes</h3>
+                Comienza registrando un nuevo paciente.
+            </div>
+        </div>
+    );
+
     const patientsList = patients.map((item, index) => (
         <div key={item.id} className={`rows ${index % 2 === 0 ? 'rows-1' : 'rows-2'}`}>
             <p>{item.id}</p>
