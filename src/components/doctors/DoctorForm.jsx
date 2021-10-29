@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
 import { useContext, useEffect } from "react";
+import MainContext from "../../global/main/MainContext";
+import { useForm } from "../../hooks/useForm";
+import { DOCTORS } from "../../types";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
-import { useForm } from "../../hooks/useForm";
-import MainContext from "../../global/main/MainContext";
-import { PATIENTS } from "../../types";
- 
+
 const initialForm = {
     firstName: '',
     lastName: '',
@@ -17,17 +17,17 @@ const initialForm = {
     email: ''
 }
 
-const PatientForm = () => {
+const DoctorForm = () => {
 
     const { setCurrentPage } = useContext(MainContext);
-    const url = "http://localhost:8090/paciente";
-    const { form, formErrors, response, resError, handleChange, handleSubmitPatientForm } = useForm(initialForm, "POST", url);
+    const url = "http://localhost:8090/medico";
+    const { form, formErrors, response, resError, handleChange, handleSubmitDoctorForm } = useForm(initialForm, "POST", url);
 
     useEffect(() => {
         if (response) {
             Swal.fire({
                 title: '¡Éxito!',
-                text: `El paciente ${response.nombre} ${response.apellido} fue registrado exitosamente.`,
+                text: `El médico ${response.nombre} ${response.apellido} fue registrado exitosamente.`,
                 icon: 'success'
             })
         }
@@ -38,7 +38,7 @@ const PatientForm = () => {
         if (resError) {
             Swal.fire({
                 title: 'Ooops',
-                text: `Error: no se pudo registrar el paciente.`,
+                text: `Error: no se pudo registrar el médico.`,
                 icon: 'error'
             })
         }
@@ -46,7 +46,7 @@ const PatientForm = () => {
     }, [resError]);
 
     useEffect(() => {
-        setCurrentPage(PATIENTS);
+        setCurrentPage(DOCTORS);
     }, []);
 
     return (
@@ -56,45 +56,45 @@ const PatientForm = () => {
             <div className="content">
                 <div className="form patient-form">
                     <form
-                        onSubmit={handleSubmitPatientForm}
+                        onSubmit={handleSubmitDoctorForm}
                     >
-                        <h2>Registra paciente</h2>
-                        <h4>Datos del paciente</h4>
+                        <h2>Registra médico</h2>
+                        <h4>Datos del médico</h4>
                         <input
                             value="-1"
                             // name="id"
                             type="hidden"
                         />
-                        <label htmlFor="reg-first-name">Nombres</label>
+                        <label htmlFor="reg-doctor-first-name">Nombres</label>
                         <input
                             onChange={handleChange}
                             name="firstName"
                             value={form.firstName}
-                            id="reg-first-name"
+                            id="reg-doctor-first-name"
                             type="text"
-                            placeholder="Nombres del paciente"
+                            placeholder="Nombres del médico"
                         />
                         {formErrors.firstName &&
                             <span className="error">{formErrors.firstName}</span>
                         }
-                        <label htmlFor="reg-last-name">Apellidos</label>
+                        <label htmlFor="reg-doctor-last-name">Apellidos</label>
                         <input
                             onChange={handleChange}
                             name="lastName"
                             value={form.lastName}
-                            id="reg-last-name"
+                            id="reg-doctor-last-name"
                             type="text"
-                            placeholder="Apellidos del paciente"
+                            placeholder="Apellidos del médico"
                         />
                         {formErrors.lastName &&
                             <span className="error">{formErrors.lastName}</span>
                         }
-                        <label htmlFor="reg-dni">DNI</label>
+                        <label htmlFor="reg-doctor-dni">DNI</label>
                         <input
                             onChange={handleChange}
                             name="dni"
                             value={form.dni}
-                            id="reg-dni"
+                            id="reg-doctor-dni"
                             type="text"
                             placeholder="Nro. Documento Nacional de Identidad"
                         />
@@ -108,50 +108,50 @@ const PatientForm = () => {
                                 name="gender"
                                 value="M"
                                 type="radio"
-                                id="reg-masculino"
+                                id="reg-doctor-masculino"
                             />
-                            <label htmlFor="reg-masculino">Masculino</label>
+                            <label htmlFor="reg-doctor-masculino">Masculino</label>
                             <input
                                 onChange={handleChange}
                                 name="gender"
                                 value="F"
                                 type="radio"
-                                id="reg-femenino"
+                                id="reg-doctor-femenino"
                             />
-                            <label htmlFor="reg-femenino">Femenino</label>
+                            <label htmlFor="reg-doctor-femenino">Femenino</label>
                         </div>
                         {formErrors.gender &&
                             <span className="error">{formErrors.gender}</span>
                         }
-                        <label htmlFor="reg-date-of-birth">Fecha de nacimiento</label>
+                        <label htmlFor="reg-doctor-date-of-birth">Fecha de nacimiento</label>
                         <input
                             onChange={handleChange}
                             name="dateOfBirth"
                             value={form.dateOfBirth}
                             type="date"
-                            id="reg-date-of-birth"
+                            id="reg-doctor-date-of-birth"
                         />
                         {formErrors.dateOfBirth &&
                             <span className="error">{formErrors.dateOfBirth}</span>
                         }
-                        <label htmlFor="reg-address">Dirección</label>
+                        <label htmlFor="reg-doctor-address">Dirección</label>
                         <input
                             onChange={handleChange}
                             name="address"
                             value={form.address}
-                            id="reg-address"
+                            id="reg-doctor-address"
                             type="text"
                             placeholder="Dirección de domicilio"
                         />
                         {formErrors.address &&
                             <span className="error">{formErrors.address}</span>
                         }
-                        <label htmlFor="reg-cell-phone">Celular</label>
+                        <label htmlFor="reg-doctor-cell-phone">Celular</label>
                         <input
                             onChange={handleChange}
                             name="cellPhone"
                             value={form.cellPhone}
-                            id="reg-address"
+                            id="reg-doctor-cell-phone"
                             type="text"
                             placeholder="Nro. Celular"
                         />
@@ -159,12 +159,12 @@ const PatientForm = () => {
                             <span className="error">{formErrors.cellPhone}</span>
                         }
                         <h4>Datos del usuario</h4>
-                        <label htmlFor="reg-email">Correo electrónico</label>
+                        <label htmlFor="reg-doctor-email">Correo electrónico</label>
                         <input
                             onChange={handleChange}
                             name="email"
                             value={form.email}
-                            id="reg-email"
+                            id="reg-doctor-email"
                             type="email"
                             placeholder="Email"
                         />
@@ -179,4 +179,4 @@ const PatientForm = () => {
     );
 }
 
-export default PatientForm;
+export default DoctorForm;

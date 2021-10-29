@@ -11,13 +11,11 @@ export const useFetch = (url, httpTypeMethod) => {
         setOptions(options);
         setIsLoading(true);
     }
-    
+
     useEffect(() => {
         if (!isLoading) return;
+
         const fetchData = async () => {
-            // console.log(url);
-            // console.log(httpTypeMethod);
-            // console.log(options);
             try {
                 let res;
                 if (httpTypeMethod === 'GET') {
@@ -26,12 +24,16 @@ export const useFetch = (url, httpTypeMethod) => {
                     res = await axios.post(url, options);
                 }
                 setResponse(res.data);
+                setIsLoading(false);
                 console.log(res.data);
+                // setTimeout(() => {
+                // }, 100);
             } catch (err) {
                 setResError("Error: no se obtuvo respuesta del servidor.");
-                console.log(err);
-            } finally {
                 setIsLoading(false);
+                console.log(err);
+                // setTimeout(() => {
+                // }, 100);
             }
         }
 

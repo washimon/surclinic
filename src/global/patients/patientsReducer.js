@@ -1,8 +1,8 @@
-import { GET_PATIENTS } from "../../types";
+import { SET_PATIENTS } from "../../types";
 
 const patientsReducer = (state, { type, payload }) => {
     switch (type) {
-        case GET_PATIENTS:
+        case SET_PATIENTS:
             return {
                 ...state,
                 patientList: [...payload]

@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { GET_PATIENTS } from "../../types";
+import { SET_PATIENTS } from "../../types";
 import PatientsContext from "./PatientsContext";
 import patientsReducer from "./patientsReducer";
 
@@ -11,9 +11,9 @@ const PatientsState = ({ children }) => {
 
     const [state, dispatch] = useReducer(patientsReducer, initialState);
 
-    const getPatients = patients => {
+    const setPatients = patients => {
         dispatch({
-            type: GET_PATIENTS,
+            type: SET_PATIENTS,
             payload: patients
         });
     }
@@ -22,7 +22,7 @@ const PatientsState = ({ children }) => {
         <PatientsContext.Provider
             value={{
                 patientList: state.patientList,
-                getPatients
+                setPatients
             }}
         >
             {children}

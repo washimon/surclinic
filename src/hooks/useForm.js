@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validatePatientForm, validateSignForm } from "../helpers/validateForm";
+import { validateDoctorForm, validatePatientForm, validateSignForm } from "../helpers/validateForm";
 import { useFetch } from './useFetch';
 
 export const useForm = (initialForm, httpTypeMethod, url) => {
@@ -41,8 +41,37 @@ export const useForm = (initialForm, httpTypeMethod, url) => {
             email: form.email,
             direccion: form.address,
             celular: form.cellPhone,
-            activo: true,
-            creadoPor: 10
+            // activo: true,
+            // creadoPor: 10
+        });
+        setForm({
+            firstName: '',
+            lastName: '',
+            dni: '',
+            gender: '',
+            dateOfBirth: '',
+            address: '',
+            cellPhone: '',
+            email: ''
+        });
+    }
+
+    const handleSubmitDoctorForm = e => {
+        e.preventDefault();
+
+        setFormErrors(validateDoctorForm(form));
+        if (Object.values(validateDoctorForm(form)).length > 0) return;
+        doFetch({
+            nombre: form.firstName,
+            apellido: form.lastName,
+            sexo: form.gender,
+            dni: form.dni,
+            fecNacimiento: form.dateOfBirth,
+            email: form.email,
+            direccion: form.address,
+            celular: form.cellPhone,
+            // activo: true,
+            // creadoPor: 10
         });
         setForm({
             firstName: '',
@@ -65,5 +94,6 @@ export const useForm = (initialForm, httpTypeMethod, url) => {
         handleChange,
         handleSubmitSignInForm,
         handleSubmitPatientForm,
+        handleSubmitDoctorForm,
     }
 }

@@ -20,7 +20,7 @@ const SignIn = () => {
                 onSubmit={handleSubmitSignInForm}
             >
                 <span className="clinic-branch">
-                    <i className="fas fa-clinic-medical"></i> SurClinic
+                    <i className="fas fa-clinic-medical"></i> Sistema Web RCM
                 </span>
                 <h1>Inicia sesión</h1>
                 <span>¿Todavía no tienes cuenta? <span>Crea una cuenta</span></span>

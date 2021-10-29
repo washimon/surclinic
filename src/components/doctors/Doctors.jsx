@@ -1,31 +1,30 @@
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "animate.css";
-import PatientsContext from "../../global/patients/PatientsContext";
+import MainContext from "../../global/main/MainContext";
+import DoctorsContext from "../../global/doctors/DoctorsContext";
+import { useFetch } from "../../hooks/useFetch";
+import { DOCTORS } from "../../types";
 import Pager from "../independent/Pager";
 import Search from "../independent/Search";
+import Loading from "../independent/Loading";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
-import { useFetch } from "../../hooks/useFetch";
-import Patientlist from "./PatientList";
-import MainContext from "../../global/main/MainContext";
-import { PATIENTS } from "../../types";
-import Loading from "../independent/Loading";
+import Doctorlist from "./DoctorList";
 
-const Patients = () => {
+const Doctors = () => {
 
     const { setCurrentPage } = useContext(MainContext);
-    const { patientList, setPatients } = useContext(PatientsContext);
-    const { response, isLoading, doFetch } = useFetch("http://localhost:8090/paciente", "GET");
+    const { doctorList, setDoctors } = useContext(DoctorsContext);
+    const { response, isLoading, doFetch } = useFetch("http://localhost:8090/medico", "GET");
 
     useEffect(() => {
         doFetch();
-        setCurrentPage(PATIENTS);
+        setCurrentPage(DOCTORS);
     }, []);
 
     useEffect(() => {
         if (!response) return;
-        setPatients(response);
+        setDoctors(response);
     }, [response]);
 
     return (
@@ -38,12 +37,12 @@ const Patients = () => {
                     <Pager />
                 </div>
                 <div className="registration-link">
-                    <Link to="/pacientes/registrar"><i className="fas fa-plus"></i>Registra paciente</Link>
+                    <Link to="/medicos/registrar"><i className="fas fa-plus"></i>Registra médico</Link>
                 </div>
                 {isLoading
                     ? <Loading />
-                    : <Patientlist
-                        patients={patientList}
+                    : <Doctorlist
+                        doctors={doctorList}
                     />
                 }
             </div>
@@ -51,4 +50,4 @@ const Patients = () => {
     );
 }
 
-export default Patients;
+export default Doctors;
