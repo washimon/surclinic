@@ -23,17 +23,17 @@ export const useFetch = (url, httpTypeMethod) => {
                 } else {
                     res = await axios.post(url, options);
                 }
-                setResponse(res.data);
-                setIsLoading(false);
-                console.log(res.data);
-                // setTimeout(() => {
-                // }, 100);
+                setTimeout(() => {
+                    setResponse(res.data);
+                    setIsLoading(false);
+                    console.log(res.data);
+                }, 200);
             } catch (err) {
-                setResError("Error: no se obtuvo respuesta del servidor.");
-                setIsLoading(false);
-                console.log(err);
-                // setTimeout(() => {
-                // }, 100);
+                setTimeout(() => {
+                    setResError("Error: no se obtuvo respuesta del servidor.");
+                    setIsLoading(false);
+                    console.log(err);
+                }, 200);
             }
         }
 

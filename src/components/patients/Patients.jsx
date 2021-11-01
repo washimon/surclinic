@@ -21,6 +21,9 @@ const Patients = () => {
     useEffect(() => {
         doFetch();
         setCurrentPage(PATIENTS);
+        return () => {
+            setPatients(null);
+        };
     }, []);
 
     useEffect(() => {

@@ -22,7 +22,6 @@ const Doctorlist = ({ doctors }) => {
             <p>{`${item.nombre || 'Sin '} ${item.apellido || 'nombres'}`}</p>
             <p>{item.dni}</p>
             <p>{item.celular}</p>
-            <p>{item.email}</p>
             <p>{item.direccion}</p>
         </div>
     ));
@@ -36,8 +35,8 @@ const Doctorlist = ({ doctors }) => {
                     <h4>Médico</h4>
                     <h4>DNI</h4>
                     <h4>Celular</h4>
-                    <h4>Email</h4>
                     <h4>Dirección</h4>
+                    <h4>Acciones</h4>
                 </div>
                 {doctorList}
             </div>

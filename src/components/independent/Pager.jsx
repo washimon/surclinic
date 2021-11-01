@@ -1,21 +1,33 @@
 import { Fragment } from "react";
 import { useContext } from "react";
 import PatientsContext from "../../global/patients/PatientsContext";
+import DoctorsContext from "../../global/doctors/DoctorsContext";
 
 const Pager = () => {
 
     const { patientList } = useContext(PatientsContext);
+    const { doctorList } = useContext(DoctorsContext);
 
     return (
         <div className="pager">
             <div className="results">
-                {!patientList
-                    ? <span>No hay resultados</span>
-                    : <Fragment>
+                {(!patientList && !doctorList) &&
+                    <span>No hay resultados</span>
+                }
+                {patientList &&
+                    <Fragment>
                         <span>Resultados </span>
                         <span>{patientList?.length}</span>
                         <span> de </span>
                         <span>{patientList?.length}</span>
+                    </Fragment>
+                }
+                {doctorList &&
+                    <Fragment>
+                        <span>Resultados </span>
+                        <span>{doctorList?.length}</span>
+                        <span> de </span>
+                        <span>{doctorList?.length}</span>
                     </Fragment>
                 }
             </div>

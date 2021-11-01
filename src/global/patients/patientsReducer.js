@@ -5,7 +5,7 @@ const patientsReducer = (state, { type, payload }) => {
         case SET_PATIENTS:
             return {
                 ...state,
-                patientList: [...payload]
+                patientList: payload
             }
         default:
             return state;

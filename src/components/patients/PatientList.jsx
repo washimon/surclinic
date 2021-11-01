@@ -21,9 +21,11 @@ const Patientlist = ({ patients }) => {
         <div key={item.id} className={`rows patient-rows ${index % 2 === 0 ? 'rows-1' : 'rows-2'}`}>
             <p>{item.id}</p>
             <p>{`${item.nombre || 'Sin '} ${item.apellido || 'nombres'}`}</p>
-            <p>{item.alergias || '0 alergias'}</p>
-            <p>{item.enfermedades || '0 enfermedades'}</p>
-            <p>{item.medicamentos || '0 medicamentos'}</p>
+            <p>{item.dni}</p>
+            <p>{item.celular}</p>
+            <p>{item.alergias || '-'}</p>
+            <p>{item.enfermedades || '-'}</p>
+            <p>{item.medicamentos || '-'}</p>
         </div>
     ));
 
@@ -34,6 +36,8 @@ const Patientlist = ({ patients }) => {
                 <div className="headers patient-headers">
                     <h4>Id</h4>
                     <h4>Paciente</h4>
+                    <h4>DNI</h4>
+                    <h4>Celular</h4>
                     <h4>Alergias</h4>
                     <h4>Enfermedades</h4>
                     <h4>Medicamentos</h4>

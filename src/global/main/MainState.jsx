@@ -1,12 +1,13 @@
 import { useReducer } from "react";
-import { DASHBOARD, SET_CURRENT_PAGE } from "../../types";
+import { DASHBOARD, SET_CURRENT_PAGE, SET_CURRENT_USER } from "../../types";
 import MainContext from "./MainContext";
 import mainReducer from "./mainReducer";
 
 const MainState = ({ children }) => {
 
     const initialState = {
-        currentPage: DASHBOARD
+        currentPage: DASHBOARD,
+        currentUser: null
     }
 
     const [state, dispatch] = useReducer(mainReducer, initialState);
@@ -18,11 +19,20 @@ const MainState = ({ children }) => {
         })
     }
 
+    const setCurrentUser = currentUser => {
+        dispatch({
+            type: SET_CURRENT_USER,
+            payload: currentUser
+        });
+    }
+
     return (
         <MainContext.Provider
             value={{
+                currentUser: state.currentUser,
                 currentPage: state.currentPage,
-                setCurrentPage
+                setCurrentPage,
+                setCurrentUser
             }}
         >
             {children}

@@ -23,7 +23,7 @@ export const validatePatientForm = form => {
     
     const regexDni = /^(\d{8})$/gm;
     const regexGender = /^(M|F)$/gm;
-    const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/gm;
+    // const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/gm;
     
     if (!form.firstName?.trim()) {
         errors.firstName = 'Los nombres son requeridos.';
@@ -57,11 +57,6 @@ export const validatePatientForm = form => {
         errors.cellPhone = 'El número de celular es requerido.';
     } else if (form.cellPhone?.trim().length > 12) {
         errors.cellPhone = 'Máximo 12 dígitos para el número de celular.';
-    }
-    if (!form.email?.trim()) {
-        errors.email = 'El email es requerido.';
-    } else if (!regexEmail.test(form.email)) {
-        errors.email = 'Email no válido. No debe contener espacios.';
     }
 
     return errors;
@@ -72,7 +67,7 @@ export const validateDoctorForm = form => {
     
     const regexDni = /^(\d{8})$/gm;
     const regexGender = /^(M|F)$/gm;
-    const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/gm;
+    // const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/gm;
     
     if (!form.firstName?.trim()) {
         errors.firstName = 'Los nombres son requeridos.';
@@ -106,11 +101,6 @@ export const validateDoctorForm = form => {
         errors.cellPhone = 'El número de celular es requerido.';
     } else if (form.cellPhone?.trim().length > 12) {
         errors.cellPhone = 'Máximo 12 dígitos para el número de celular.';
-    }
-    if (!form.email?.trim()) {
-        errors.email = 'El email es requerido.';
-    } else if (!regexEmail.test(form.email)) {
-        errors.email = 'Email no válido. No debe contener espacios.';
     }
 
     return errors;

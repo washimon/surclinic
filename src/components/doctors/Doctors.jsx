@@ -20,6 +20,9 @@ const Doctors = () => {
     useEffect(() => {
         doFetch();
         setCurrentPage(DOCTORS);
+        return () => {
+            setDoctors(null);
+        };
     }, []);
 
     useEffect(() => {

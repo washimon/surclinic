@@ -17,14 +17,11 @@ export const useForm = (initialForm, httpTypeMethod, url) => {
 
     const handleSubmitSignInForm = e => {
         e.preventDefault();
-        
+        if (isLoading) return;
+        console.log('Sign form button tocado');
         setFormErrors(validateSignForm(form));
         if (Object.values(validateSignForm(form)).length > 0) return;
         doFetch();
-        setForm({
-            userName: '',
-            password: ''
-        });
     }
 
     const handleSubmitPatientForm = e => {
@@ -38,11 +35,11 @@ export const useForm = (initialForm, httpTypeMethod, url) => {
             sexo: form.gender,
             dni: form.dni,
             fecNacimiento: form.dateOfBirth,
-            email: form.email,
             direccion: form.address,
             celular: form.cellPhone,
-            // activo: true,
-            // creadoPor: 10
+            alergias: form.allergies,
+            enfermedades: form.deseases,
+            medicamentos: form.medicines
         });
         setForm({
             firstName: '',
@@ -52,7 +49,9 @@ export const useForm = (initialForm, httpTypeMethod, url) => {
             dateOfBirth: '',
             address: '',
             cellPhone: '',
-            email: ''
+            allergies: '',
+            deseases: '',
+            medicines: '',
         });
     }
 

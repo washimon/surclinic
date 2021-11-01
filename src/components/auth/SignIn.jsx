@@ -1,4 +1,7 @@
+import { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
+import MainContext from "../../global/main/MainContext";
 
 const initialForm = {
     userName: '',
@@ -7,12 +10,25 @@ const initialForm = {
 
 const SignIn = () => {
 
+    let history = useHistory();
+    const { setCurrentUser } = useContext(MainContext);
     const {
         form,
         formErrors,
+        isLoading,
+        response,
+        resError,
         handleChange,
         handleSubmitSignInForm,
-    } = useForm(initialForm, "GET", "http://localhost:8080/api/clientes");
+    } = useForm(initialForm, "GET", "http://localhost:8090/paciente");
+
+    useEffect(() => {
+        if (response) {
+            console.log('dentro response');
+            setCurrentUser({ userName: 'washimon', firstName: 'Miguel', lastName: 'Coila' });
+            history.push("/");
+        };
+    }, [response, history]);
 
     return (
         <div className="form">
@@ -48,7 +64,8 @@ const SignIn = () => {
                 {formErrors.password &&
                     <span className="error">{formErrors.password}</span>
                 }
-                <button>Iniciar sesión</button>
+                <button>{isLoading ? <i className="fas fa-circle-notch fa-spin"></i> : 'Iniciar sesión'}</button>
+                <strong className="error">{resError && 'El usuario o la contraseña son incorrectos.'}</strong>
             </form>
             <div className="form-banner">
                 <div className="banner"></div>

@@ -1,4 +1,4 @@
-import { SET_CURRENT_PAGE } from "../../types";
+import { SET_CURRENT_PAGE, SET_CURRENT_USER } from "../../types";
 
 const mainReducer = (state, { type, payload }) => {
     switch (type) {
@@ -6,6 +6,11 @@ const mainReducer = (state, { type, payload }) => {
             return {
                 ...state,
                 currentPage: payload
+            }
+        case SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: payload
             }
         default:
             return state;
