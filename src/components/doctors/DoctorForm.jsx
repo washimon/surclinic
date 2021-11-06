@@ -27,7 +27,7 @@ const DoctorForm = () => {
     useEffect(() => {
         if (response) {
             console.log('Response recibido');
-            history.push("/pacientes");
+            history.push("/medicos");
             Swal.fire({
                 title: '¡Éxito!',
                 text: `El médico ${response.nombre} ${response.apellido} fue registrado exitosamente.`,
