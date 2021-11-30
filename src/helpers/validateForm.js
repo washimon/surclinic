@@ -18,6 +18,32 @@ export const validateSignForm = form => {
     return errors;
 }
 
+export const validateSignUpForm = form => {
+    const errors = {};
+    const regexUserName = /^([a-zA-Z\d]{3})[a-zA-Z\d]*$/gm;
+    const regexPassword = /^([a-zA-Z\d]{6})[a-zA-Z\d]*$/gm;
+    const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    
+    if (!form.userName?.trim()) {
+        errors.email = 'El email es requerido.';
+    } else if (!regexEmail.test(form.email)) {
+        errors.email = 'El email no es válido.';
+    }
+    if (!form.userName?.trim()) {
+        errors.userName = 'El usuario es requerido.';
+    } else if (!regexUserName.test(form.userName)) {
+        errors.userName = 'El usuario debe tener entre 3 a más caracteres y sin espacios.';
+    }
+    
+    if (!form.password?.trim()) {
+        errors.password = 'La contraseña es requerida.';
+    } else if (!regexPassword.test(form.password)) {
+        errors.password = 'La contraseña debe tener entre 6 a más caracteres y sin espacios.';
+    }
+    
+    return errors;
+}
+
 export const validatePatientForm = form => {
     const errors = {};
     

@@ -1,18 +1,17 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
-import MainContext from "../../global/main/MainContext";
 import { POST } from "../../types";
+import Swal from "sweetalert2";
 
 const initialForm = {
     userName: '',
     password: ''
 }
 
-const SignIn = () => {
+const SignUp = () => {
 
     let history = useHistory();
-    const { setCurrentUser } = useContext(MainContext);
     const {
         form,
         formErrors,
@@ -20,32 +19,47 @@ const SignIn = () => {
         response,
         resError,
         handleChange,
-        handleSubmitSignInForm,
-    } = useForm(initialForm, "http://localhost:8090/auth/signin", POST);
+        handleSubmitSignUpForm,
+    } = useForm(initialForm, "http://localhost:8090/auth/signup", POST);
 
     useEffect(() => {
         if (response) {
-            console.log('dentro response');
-            setCurrentUser({ userName: response.username, email: response.email });
-            history.replace("/");
+            history.replace("/iniciar-sesion");
+            Swal.fire({
+                title: '¡Éxito!',
+                text: `La cuenta fue creada exitosamente.`,
+                icon: 'success'
+            })
         };
     }, [response, history]);
 
     return (
         <div className="sign-in">
             <form
-                onSubmit={handleSubmitSignInForm}
+                onSubmit={handleSubmitSignUpForm}
             >
                 <span className="clinic-branch">
                     <i className="fas fa-clinic-medical"></i> Sistema Web RCM
                 </span>
-                <h1>Inicia sesión</h1>
+                <h1>Regístrate</h1>
                 <span className="link-registro">
-                    ¿Todavía no tienes cuenta? 
+                    ¿Ya tienes cuenta?
                     <span>
-                        <Link to="/registro"> Crea una cuenta</Link>
+                        <Link to="/iniciar-sesion"> Inicia sesión</Link>
                     </span>
                 </span>
+                <label htmlFor="id-email">Email</label>
+                <input
+                    onChange={handleChange}
+                    name="email"
+                    value={form.email}
+                    className={formErrors.email && "input-error"}
+                    id="id-email"
+                    type="text"
+                />
+                {formErrors.email &&
+                    <span className="error">{formErrors.email}</span>
+                }
                 <label htmlFor="id-username">Nombre de usuario</label>
                 <input
                     onChange={handleChange}
@@ -70,15 +84,14 @@ const SignIn = () => {
                 {formErrors.password &&
                     <span className="error">{formErrors.password}</span>
                 }
-                <button>{isLoading ? <i className="fas fa-circle-notch fa-spin"></i> : 'Iniciar sesión'}</button>
-                <strong className="error">{resError && 'El usuario o la contraseña son incorrectos.'}</strong>
+                <button>{isLoading ? <i className="fas fa-circle-notch fa-spin"></i> : 'Registrar'}</button>
+                <strong className="error">{resError && 'No se pudo crear la cuenta nueva.'}</strong>
             </form>
             <div className="form-banner">
                 <div className="banner"></div>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#5995f7" fillOpacity="1" d="M0,128L60,144C120,160,240,192,360,192C480,192,600,160,720,138.7C840,117,960,107,1080,133.3C1200,160,1320,224,1380,256L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
         </div>
     );
 }
 
-export default SignIn;
+export default SignUp;

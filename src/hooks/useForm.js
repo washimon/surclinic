@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import DoctorsContext from "../global/doctors/DoctorsContext";
 import PatientsContext from "../global/patients/PatientsContext";
-import { validateDoctorForm, validatePatientForm, validateSignForm } from "../helpers/validateForm";
+import { validateDoctorForm, validatePatientForm, validateSignForm, validateSignUpForm } from "../helpers/validateForm";
 import { POST, PUT } from "../types";
 import { useFetch } from './useFetch';
 
@@ -42,6 +42,23 @@ export const useForm = (initialForm, url, httpMethodType = POST) => {
         doFetch({
             username: form.userName,
             password: form.password
+        });
+    }
+    
+    const handleSubmitSignUpForm = e => {
+        e.preventDefault();
+        if (isLoading) return;
+        console.log('SignUP form button tocado');
+        setFormErrors(validateSignUpForm(form));
+        if (Object.values(validateSignUpForm(form)).length > 0) return;
+        doFetch({
+            email: form.email,
+            username: form.userName,
+            password: form.password,
+            roles: [
+                "superadmin",
+                "admin"
+            ]
         });
     }
 
@@ -135,6 +152,7 @@ export const useForm = (initialForm, url, httpMethodType = POST) => {
         handleSubmitSignInForm,
         handleSubmitPatientForm,
         handleSubmitDoctorForm,
+        handleSubmitSignUpForm,
         setForm
     }
 }
