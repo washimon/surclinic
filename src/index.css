@@ -613,3 +613,18 @@ strong[class="error"] {
     margin-top: 1rem;
     font-size: 16px;
 }
+.sign-in {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+.sign-in form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0 auto;
+}
+.sign-in svg {
+    grid-column: 1 / 3;
+}

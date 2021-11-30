@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "../../hooks/useForm";
 import MainContext from "../../global/main/MainContext";
+import { POST } from "../../types";
 
 const initialForm = {
     userName: '',
@@ -20,13 +21,13 @@ const SignIn = () => {
         resError,
         handleChange,
         handleSubmitSignInForm,
-    } = useForm(initialForm, "GET", "http://localhost:8090/paciente");
+    } = useForm(initialForm, "http://localhost:8090/auth/signin", POST);
 
     useEffect(() => {
         if (response) {
             console.log('dentro response');
-            setCurrentUser({ userName: 'washimon', firstName: 'Miguel', lastName: 'Coila' });
-            history.push("/");
+            setCurrentUser({ userName: response.username, email: response.email });
+            history.replace("/");
         };
     }, [response, history]);
 

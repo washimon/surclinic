@@ -39,7 +39,10 @@ export const useForm = (initialForm, url, httpMethodType = POST) => {
         console.log('Sign form button tocado');
         setFormErrors(validateSignForm(form));
         if (Object.values(validateSignForm(form)).length > 0) return;
-        doFetch();
+        doFetch({
+            username: form.userName,
+            password: form.password
+        });
     }
 
     const handleSubmitPatientForm = (e, edit = false) => {

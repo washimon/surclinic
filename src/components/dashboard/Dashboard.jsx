@@ -8,7 +8,6 @@ const Dashboard = () => {
     return (
         <Fragment>
             <h3>Bienvenido {currentUser?.userName}</h3>
-            <h1>Horario de citas</h1>
         </Fragment>
     );
 }
