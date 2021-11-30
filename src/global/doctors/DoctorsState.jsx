@@ -1,12 +1,13 @@
 import { useReducer } from "react";
 import doctorsReducer from "./doctorsReducer";
 import DoctorsContext from "./DoctorsContext";
-import { SET_DOCTORS } from "../../types";
+import { SET_DOCTORS, SET_DOCTOR_TO_EDIT } from "../../types";
 
 const DoctorsState = ({ children }) => {
 
     const initialState = {
-        doctorList: null
+        doctorList: null,
+        doctorToEdit: null
     }
     const [state, dispatch] = useReducer(doctorsReducer, initialState);
 
@@ -17,11 +18,20 @@ const DoctorsState = ({ children }) => {
         });
     }
 
+    const setDoctorToEdit = doctor => {
+        dispatch({
+            type: SET_DOCTOR_TO_EDIT,
+            payload: doctor
+        });
+    }
+
     return (
         <DoctorsContext.Provider
             value={{
                 doctorList: state.doctorList,
-                setDoctors
+                doctorToEdit: state.doctorToEdit,
+                setDoctors,
+                setDoctorToEdit
             }}
         >
             {children}

@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { DELETE, GET, GET_WITH_PARAMS, POST, PUT } from '../types';
 
-export const useFetch = (url, httpTypeMethod) => {
+export const useFetch = (url, httpMethodType = GET) => {
     const [response, setResponse] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [resError, setResError] = useState(null);
     const [options, setOptions] = useState({});
+    const [params, setParams] = useState(null);
 
-    const doFetch = (options = {}) => {
+    const doFetch = (options = {}, params = null) => {
         setOptions(options);
+        setParams(params);
         setIsLoading(true);
     }
 
@@ -18,10 +21,24 @@ export const useFetch = (url, httpTypeMethod) => {
         const fetchData = async () => {
             try {
                 let res;
-                if (httpTypeMethod === 'GET') {
-                    res = await axios.get(url);
-                } else {
-                    res = await axios.post(url, options);
+                switch (httpMethodType) {
+                    case GET:
+                        res = await axios.get(url);
+                        break;
+                    case POST:
+                        res = await axios.post(url, options);
+                        break;
+                    case PUT:
+                        res = await axios.put(url, options);
+                        break;
+                    case DELETE:
+                        res = await axios.delete(`${url}?${params}`);
+                        break;
+                    case GET_WITH_PARAMS:
+                        res = await axios.get(`${url}?${params}`);
+                        break;
+                    default:
+                        break;
                 }
                 setTimeout(() => {
                     setResponse(res.data);
@@ -38,7 +55,7 @@ export const useFetch = (url, httpTypeMethod) => {
         }
 
         fetchData();
-    }, [isLoading, options, url, httpTypeMethod]);
+    }, [isLoading, options, url, httpMethodType]);
 
     return {
         response,

@@ -1,3 +1,5 @@
+import Patient from "./Patient";
+
 const Patientlist = ({ patients }) => {
 
     if (!patients) return (
@@ -18,15 +20,12 @@ const Patientlist = ({ patients }) => {
     );
 
     const patientsList = patients.map((item, index) => (
-        <div key={item.id} className={`rows patient-rows ${index % 2 === 0 ? 'rows-1' : 'rows-2'}`}>
-            <p>{item.id}</p>
-            <p>{`${item.nombre || 'Sin '} ${item.apellido || 'nombres'}`}</p>
-            <p>{item.dni}</p>
-            <p>{item.celular}</p>
-            <p>{item.alergias || '-'}</p>
-            <p>{item.enfermedades || '-'}</p>
-            <p>{item.medicamentos || '-'}</p>
-        </div>
+        <Patient
+            key={item.id}
+            {...item}
+            index={index}
+            patient={item}
+        />
     ));
 
     return (
@@ -41,6 +40,7 @@ const Patientlist = ({ patients }) => {
                     <h4>Alergias</h4>
                     <h4>Enfermedades</h4>
                     <h4>Medicamentos</h4>
+                    <h4>Acciones</h4>
                 </div>
                 {patientsList}
             </div>

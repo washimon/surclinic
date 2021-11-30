@@ -31,7 +31,7 @@ const SignIn = () => {
     }, [response, history]);
 
     return (
-        <div className="form">
+        <div className="sign-in">
             <form
                 onSubmit={handleSubmitSignInForm}
             >

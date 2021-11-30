@@ -103,5 +103,12 @@ export const validateDoctorForm = form => {
         errors.cellPhone = 'Máximo 12 dígitos para el número de celular.';
     }
 
+    if (!form.area) {
+        errors.area = 'El área es requerido.';
+    }
+    if (!form.specialty) {
+        errors.specialty = 'La especialidad es requerida.';
+    }
+
     return errors;
 }

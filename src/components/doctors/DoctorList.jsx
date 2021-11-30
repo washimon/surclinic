@@ -1,4 +1,41 @@
-const Doctorlist = ({ doctors }) => {
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+import { useFetch } from "../../hooks/useFetch";
+import { DELETE } from "../../types";
+import Doctor from "./Doctor";
+
+const Doctorlist = ({ doctors, doFetchAllDoctors }) => {
+
+    const {
+        response: doctorRemoved,
+        resError: removeResError,
+        doFetch: doFetchRemove
+    } = useFetch('http://localhost:8090/medico', DELETE);
+
+    useEffect(() => {
+        if (doctorRemoved) {
+            console.log('Response recibido');
+            doFetchAllDoctors();
+            Swal.fire({
+                title: '¡Éxito!',
+                text: `El médico fue eliminado exitosamente.`,
+                icon: 'success'
+            })
+        }
+
+    }, [doctorRemoved]);
+
+    useEffect(() => {
+        if (removeResError) {
+            Swal.fire({
+                title: 'Ooops',
+                text: `Error: no se pudo eliminar el médico.`,
+                icon: 'error'
+            })
+        }
+
+    }, [removeResError]);
+
     if (!doctors) return (
         <div className="results-table animate__animated animate__fadeIn">
             <div className="alert alert-danger">
@@ -17,13 +54,13 @@ const Doctorlist = ({ doctors }) => {
     );
 
     const doctorList = doctors.map((item, index) => (
-        <div key={item.id} className={`rows doctor-rows ${index % 2 === 0 ? 'rows-1' : 'rows-2'}`}>
-            <p>{item.id}</p>
-            <p>{`${item.nombre || 'Sin '} ${item.apellido || 'nombres'}`}</p>
-            <p>{item.dni}</p>
-            <p>{item.celular}</p>
-            <p>{item.direccion}</p>
-        </div>
+        <Doctor
+            key={item.id}
+            {...item}
+            index={index}
+            doctor={item}
+            doFetchRemove={doFetchRemove}
+        />
     ));
 
     return (
