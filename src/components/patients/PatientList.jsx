@@ -1,6 +1,40 @@
 import Patient from "./Patient";
+import { useFetch } from '../../hooks/useFetch';
+import { DELETE } from "../../types";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
-const Patientlist = ({ patients }) => {
+const Patientlist = ({ patients, doFetchAllPatients }) => {
+
+    const {
+        response: doctorRemoved,
+        resError: removeResError,
+        doFetch: doFetchRemove
+    } = useFetch('http://localhost:8090/paciente', DELETE);
+
+    useEffect(() => {
+        if (doctorRemoved) {
+            console.log('Response recibido');
+            doFetchAllPatients();
+            Swal.fire({
+                title: '¡Éxito!',
+                text: `El paciente fue eliminado exitosamente.`,
+                icon: 'success'
+            })
+        }
+
+    }, [doctorRemoved]);
+
+    useEffect(() => {
+        if (removeResError) {
+            Swal.fire({
+                title: 'Ooops',
+                text: `Error: no se pudo eliminar el paciente.`,
+                icon: 'error'
+            })
+        }
+
+    }, [removeResError]);
 
     if (!patients) return (
         <div className="results-table animate__animated animate__fadeIn">
@@ -25,6 +59,7 @@ const Patientlist = ({ patients }) => {
             {...item}
             index={index}
             patient={item}
+            doFetchRemove={doFetchRemove}
         />
     ));
 

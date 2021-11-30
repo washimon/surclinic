@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { useHistory } from "react-router";
+import Swal from "sweetalert2";
 import PatientsContext from "../../global/patients/PatientsContext";
 
-const Patient = ({ id, nombre, apellido, dni, celular, alergias, enfermedades, medicamentos, index, patient }) => {
+const Patient = ({ id, nombre, apellido, dni, celular, alergias, enfermedades, medicamentos, index, patient, doFetchRemove }) => {
 
     const history = useHistory();
     const { setPatientToEdit } = useContext(PatientsContext);
@@ -12,8 +13,17 @@ const Patient = ({ id, nombre, apellido, dni, celular, alergias, enfermedades, m
         history.push('/pacientes/formulario');
     }
 
-    const handleDelete = () => {
-        
+    const handleDelete = async () => {
+        const { value: accept } = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Desea eliminar el paciente?',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+            showCancelButton: true
+        });
+        if (accept) {
+            doFetchRemove({}, `id=${id}`);
+        }
     }
 
     return (
@@ -30,7 +40,10 @@ const Patient = ({ id, nombre, apellido, dni, celular, alergias, enfermedades, m
                     onClick={handleEdit}
                     className="far fa-edit"
                 ></i>
-                <i className="far fa-trash-alt"></i>
+                <i
+                    onClick={handleDelete}
+                    className="far fa-trash-alt"
+                ></i>
             </p>
         </div>
     );

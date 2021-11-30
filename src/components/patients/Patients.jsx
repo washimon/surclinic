@@ -42,6 +42,7 @@ const Patients = () => {
                 ? <Loading />
                 : <Patientlist
                     patients={patientList}
+                    doFetchAllPatients={doFetch}
                 />
             }
         </Fragment>
