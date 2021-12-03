@@ -77,7 +77,7 @@ const DoctorForm = () => {
             history.push("/medicos");
             Swal.fire({
                 title: '¡Éxito!',
-                text: `El médico ${response.nombre} ${response.apellido} fue actualizado exitosamente.`,
+                text: `El médico ${editRes.nombre} ${editRes.apellido} fue actualizado exitosamente.`,
                 icon: 'success'
             })
         }

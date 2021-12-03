@@ -23,8 +23,8 @@ const Sidebar = () => {
                 <Link onClick={() => handleClick(PATIENTS)} to="/pacientes">
                     <li className={`${currentPage === PATIENTS && 'current-page'}`}><i className="fas fa-users"></i>Pacientes</li>
                 </Link>
-                <li><i className="fas fa-calendar-check"></i>Citas</li>
-                <li><i className="fas fa-pills"></i>Medicina</li>
+                {/* <li><i className="fas fa-calendar-check"></i>Citas</li>
+                <li><i className="fas fa-pills"></i>Medicina</li> */}
                 <li><i className="fas fa-cogs"></i>Ajustes</li>
             </ul>
         </aside>

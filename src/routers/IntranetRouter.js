@@ -1,28 +1,41 @@
-import { Switch, Route, Redirect } from "react-router-dom";
-import Dashboard from "../components/dashboard/Dashboard";
-import DoctorForm from "../components/doctors/DoctorForm";
-import Doctors from "../components/doctors/Doctors";
-import Navbar from "../components/layout/Navbar";
-import Sidebar from "../components/layout/Sidebar";
-import PatientForm from "../components/patients/PatientForm";
-import Patients from "../components/patients/Patients";
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Dashboard from '../components/dashboard/Dashboard';
+import DoctorForm from '../components/doctors/DoctorForm';
+import Doctors from '../components/doctors/Doctors';
+import Navbar from '../components/layout/Navbar';
+import Sidebar from '../components/layout/Sidebar';
+import PatientForm from '../components/patients/PatientForm';
+import Patients from '../components/patients/Patients';
+import Murphybot from '../components/chatbot/MurphyBot';
+import { Fragment, useContext } from 'react';
+import MainContext from '../global/main/MainContext';
 
 const IntranetRouter = () => {
+
+    const { currentUser } = useContext(MainContext);
+
+    if (!currentUser) {
+        return <Redirect to="/iniciar-sesion" />
+    }
+
     return (
-        <div className="main">
-            <Navbar />
-            <Sidebar />
-            <div className="content">
-                <Switch>
-                    <Route exact path="/" component={Dashboard} />
-                    <Route exact path="/pacientes" component={Patients} />
-                    <Route exact path="/pacientes/formulario" component={PatientForm} />
-                    <Route exact path="/medicos" component={Doctors} />
-                    <Route exact path="/medicos/formulario" component={DoctorForm} />
-                    <Redirect to="/" />
-                </Switch>
+        <Fragment>
+            <div className="main">
+                <Navbar />
+                <Sidebar />
+                <div className="content">
+                    <Switch>
+                        <Route exact path="/" component={Dashboard} />
+                        <Route exact path="/pacientes" component={Patients} />
+                        <Route exact path="/pacientes/formulario" component={PatientForm} />
+                        <Route exact path="/medicos" component={Doctors} />
+                        <Route exact path="/medicos/formulario" component={DoctorForm} />
+                        <Redirect to="/" />
+                    </Switch>
+                </div>
             </div>
-        </div>
+            <Murphybot />
+        </Fragment>
     );
 }
 

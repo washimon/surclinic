@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './components/chatbot/styles.css';
 import reportWebVitals from './reportWebVitals';
 
 import ClinicApp from './ClinicApp';
