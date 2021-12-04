@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import DoctorsContext from "../global/doctors/DoctorsContext";
 import PatientsContext from "../global/patients/PatientsContext";
-import { validateDoctorForm, validatePatientForm, validateSignForm, validateSignUpForm } from "../helpers/validateForm";
+import { validateAppointmentForm, validateDoctorForm, validatePatientForm, validateSignForm, validateSignUpForm } from "../helpers/validateForm";
 import { POST, PUT } from "../types";
 import { useFetch } from './useFetch';
 
@@ -44,7 +44,7 @@ export const useForm = (initialForm, url, httpMethodType = POST) => {
             password: form.password
         });
     }
-    
+
     const handleSubmitSignUpForm = e => {
         e.preventDefault();
         if (isLoading) return;
@@ -139,6 +139,35 @@ export const useForm = (initialForm, url, httpMethodType = POST) => {
         });
     }
 
+    const handleSubmitAppointmentForm = e => {
+        e.preventDefault();
+
+        setFormErrors(validateAppointmentForm(form));
+        if (Object.values(validateAppointmentForm(form)).length > 0) return;
+        const appointment = {
+            inicio_cita: new Date(form.startOfAppoint),
+            fin_cita: new Date(form.endOfAppoint),
+            motivo: form.reason,
+            observaciones: form.observations,
+            precio: form.price,
+            sintomas: form.symptoms,
+            id_paciente: form.patient,
+            id_especialidad: form.specialty
+        }
+        doFetch({ ...appointment });
+        setForm({
+            startOfAppoint: '',
+            endOfAppoint: '',
+            reason: '',
+            observations: '',
+            price: 0,
+            symptoms: '',
+            patient: '',
+            specialty: '',
+            area: ''
+        });
+    }
+
     return {
         form,
         formErrors,
@@ -153,6 +182,7 @@ export const useForm = (initialForm, url, httpMethodType = POST) => {
         handleSubmitPatientForm,
         handleSubmitDoctorForm,
         handleSubmitSignUpForm,
+        handleSubmitAppointmentForm,
         setForm
     }
 }

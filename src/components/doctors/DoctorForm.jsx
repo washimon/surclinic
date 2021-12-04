@@ -127,7 +127,7 @@ const DoctorForm = () => {
                 onSubmit={doctorToEdit ? e => handleSubmitDoctorForm(e, true) : handleSubmitDoctorForm}
             >
                 <h2>{doctorToEdit ? 'Edita' : 'Registra'} Médico</h2>
-                <h4>Datos del médico</h4>
+                <h4>Datos Personales</h4>
                 <div className="control-firts-name">
                     <label htmlFor="reg-doctor-first-name">Nombres</label>
                     <input

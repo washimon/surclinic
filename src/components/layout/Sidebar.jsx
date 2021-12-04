@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import MainContext from "../../global/main/MainContext";
-import { DASHBOARD, DOCTORS, PATIENTS } from "../../types";
+import { APPOINTMENTS, DASHBOARD, DOCTORS, PATIENTS } from "../../types";
 
 const Sidebar = () => {
 
@@ -22,6 +22,9 @@ const Sidebar = () => {
                 </Link>
                 <Link onClick={() => handleClick(PATIENTS)} to="/pacientes">
                     <li className={`${currentPage === PATIENTS && 'current-page'}`}><i className="fas fa-users"></i>Pacientes</li>
+                </Link>
+                <Link onClick={() => handleClick(APPOINTMENTS)} to="/citas">
+                    <li className={`${currentPage === APPOINTMENTS && 'current-page'}`}><i className="fas fa-calendar-check"></i>Citas</li>
                 </Link>
                 {/* <li><i className="fas fa-calendar-check"></i>Citas</li>
                 <li><i className="fas fa-pills"></i>Medicina</li> */}

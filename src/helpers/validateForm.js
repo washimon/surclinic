@@ -138,3 +138,39 @@ export const validateDoctorForm = form => {
 
     return errors;
 }
+
+export const validateAppointmentForm = form => {
+    const errors = {};
+
+    if (!form.startOfAppoint) {
+        errors.startOfAppoint = 'La fecha de inicio de la cita es requerida.';
+    }
+    if (!form.endOfAppoint) {
+        errors.endOfAppoint = 'La fecha fin de la cita es requerida.';
+    }
+    if (!form.reason?.trim()) {
+        errors.reason = 'El motivo es requerido.';
+    }
+    if (form.observations?.trim() && form.observations?.trim().length > 255) {
+        errors.observations = 'Máximo 255 caracteres permitidos para las observaciones.';
+    }
+    if (form.price === 0) {
+        errors.price = 'El precio es requerido.';
+    }
+    if (!form.symptoms?.trim()) {
+        errors.symptoms = 'Los síntomas son requeridos.';
+    } else if (form.symptoms?.trim().length > 255) {
+        errors.symptoms = 'Máximo 255 caracteres permitidos para los síntomas.';
+    }
+    if (!form.patient?.trim()) {
+        errors.patient = 'El paciente es requerido.';
+    }
+    if (!form.area) {
+        errors.area = 'El área es requerido.';
+    }
+    if (!form.specialty) {
+        errors.specialty = 'La especialidad es requerida.';
+    }
+
+    return errors;
+}

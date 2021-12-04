@@ -36,7 +36,7 @@ const Patients = () => {
                 <Pager />
             </div>
             <div className="registration-link">
-                <Link to="/pacientes/formulario"><i className="fas fa-plus"></i>Registra paciente</Link>
+                <Link to="/pacientes/formulario"><i className="fas fa-plus"></i>Registra nuevo paciente</Link>
             </div>
             {isLoading
                 ? <Loading />

@@ -5,6 +5,7 @@ import { POST } from "../../types";
 import Swal from "sweetalert2";
 
 const initialForm = {
+    email: '',
     userName: '',
     password: ''
 }

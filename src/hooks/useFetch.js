@@ -41,15 +41,16 @@ export const useFetch = (url, httpMethodType = GET) => {
                         break;
                 }
                 setTimeout(() => {
-                    setResponse(res.data);
+                    setResponse(res?.data);
                     setIsLoading(false);
-                    console.log(res.data);
+                    console.log(res?.data);
                 }, 200);
             } catch (err) {
                 setTimeout(() => {
                     setResError("Error: no se obtuvo respuesta del servidor.");
                     setIsLoading(false);
                     console.log(err);
+                    console.log({options})
                 }, 200);
             }
         }
